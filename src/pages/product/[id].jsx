@@ -60,7 +60,7 @@ const ProductEdit = ({ product }) => {
 
 export const getServerSideProps = async (context) => {
   const { data: product } = await axios.get(
-    `/api/product/${context.query.id}`
+    `https://next-x-mysql.vercel.app/api/product/${context.query.id}`
   );
 
   return {

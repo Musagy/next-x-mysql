@@ -1,8 +1,8 @@
 /* eslint-disable jsx-a11y/alt-text */
 /* eslint-disable @next/next/no-img-element */
 import axios from "axios";
+import Route from "next/dist/server/router";
 import Link from "next/link";
-import Image from "next/image";
 import Btn from "../components/common/Btn.";
 import useStore from "../hooks/useStore";
 
@@ -78,9 +78,8 @@ function Home({ product }) {
   );
 }
 export const getServerSideProps = async (context) => {
-  const { data: product } = await axios.get(
-    "/api/product"
-  );
+  // const {} = Route()
+  const { data: product } = await axios.get("https://next-x-mysql.vercel.app/api/product");
 
   return {
     props: {

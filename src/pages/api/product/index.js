@@ -9,7 +9,7 @@ export default function handler(req, res) {
   }
 }
 
-const getProducts = async (req, res) => {
+const getProducts = async (_, res) => {
   const [result] = await pool.query("SELECT * FROM products");
   // console.log(result)
   return res.status(200).json(result);

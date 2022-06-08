@@ -54,7 +54,7 @@ const ProductsForm = () => {
 
   useEffect(() => {
     if (query.id) {
-      getProduct(`/api/product/${query.id}`, setProduct);
+      getProduct(`https://next-x-mysql.vercel.app/api/product/${query.id}`, setProduct);
     }
   }, [query]);
 
