@@ -60,7 +60,7 @@ const ProductEdit = ({ product }) => {
 
 export const getServerSideProps = async (context) => {
   const { data: product } = await axios.get(
-    `http://localhost:3000/api/product/${context.query.id}`
+    `/api/product/${context.query.id}`
   );
 
   return {

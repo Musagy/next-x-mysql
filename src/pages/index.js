@@ -79,7 +79,7 @@ function Home({ product }) {
 }
 export const getServerSideProps = async (context) => {
   const { data: product } = await axios.get(
-    "http://localhost:3000/api/product"
+    "/api/product"
   );
 
   return {
