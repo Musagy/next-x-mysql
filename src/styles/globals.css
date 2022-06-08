@@ -1,0 +1,22 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+* {
+  /* font-family: Inter var,ui-sans-serif,system-ui,-apple-system,BlinkMacSystemFont,Segoe UI,Roboto,Helvetica Neue,Arial,Noto Sans,sans-serif,Apple Color Emoji,Segoe UI Emoji,Segoe UI Symbol,Noto Color Emoji; */
+  font-family: "Inter", sans-serif;
+}
+
+.custom-shadow {
+  box-shadow:  9px 9px 18px #b6babc,
+               -9px -9px 18px #ffffff;
+  
+}
+.bg-primary-custom {
+  background-color: #EDF1F4;
+}
+input, textarea{
+  background: #EDF1F4;
+  box-shadow: inset 5px 5px 9px #d5d9dc,
+              inset -5px -5px 9px #ffffff;
+}
