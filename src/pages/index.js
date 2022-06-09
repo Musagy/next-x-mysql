@@ -79,7 +79,7 @@ function Home({ product }) {
 }
 export const getServerSideProps = async (context) => {
   // const {} = Route()
-  const { data: product } = await axios.get("https://next-x-mysql.vercel.app/api/product");
+  const { data: product } = await axios.get("https://pro-products.vercel.app/api/product");
 
   return {
     props: {
