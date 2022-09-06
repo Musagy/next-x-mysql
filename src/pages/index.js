@@ -5,9 +5,17 @@ import Route from "next/dist/server/router";
 import Link from "next/link";
 import Btn from "../components/common/Btn.";
 import useStore from "../hooks/useStore";
+import { useEffect } from "react"
 
 function Home({ product }) {
   const { store, setStore } = useStore();
+  useEffect(() => {console.log({
+  host: process.env.MYSQL_HOST,
+  user: process.env.MYSQL_USER,
+  password: process.env.MYSQL_PASSWORD,
+  port: process.env.MYSQL_PORT,
+  database: process.env.MYSQL_DATABASE,
+})}, [])
   return (
     <div className="w-full flex justify-center ">
       <div className="display flex flex-col gap-6 flex-wrap justify-center w-full max-w-2xl m-3">
