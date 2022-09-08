@@ -65,10 +65,18 @@ const ProductsForm = () => {
   useEffect(() => {
     if (query.id) {
       getProduct(
-        `${process.env.DOMINE}/api/product/${query.id}`,
+        `http${window.location.host.includes("localhost") ? "" : "s"}://${
+          window.location.host
+        }/api/product/${query.id}`,
         setProduct
       )
     }
+    console.log(
+      `http${window.location.host.includes("localhost") ? "" : "s"}://${
+        window.location.host
+      }/api/product`,
+      process.env.MYSQL_HOST
+    )
   }, [query])
 
   const [product, setProduct] = useState<product>({
@@ -90,10 +98,20 @@ const ProductsForm = () => {
     e.preventDefault()
     try {
       if (query.id) {
-        await axios.put(`${process.env.DOMINE}/api/product/${query.id}`, product)
+        await axios.put(
+          `http${window.location.host.includes("localhost") ? "" : "s"}://${
+            window.location.host
+          }/api/product/${query.id}`,
+          product
+        )
         editedNotify()
       } else {
-        await axios.post(`${process.env.DOMINE}/api/product`, product)
+        await axios.post(
+          `http${window.location.host.includes("localhost") ? "" : "s"}://${
+            window.location.host
+          }/api/product`,
+          product
+        )
         createdNotify()
       }
       push("/")
