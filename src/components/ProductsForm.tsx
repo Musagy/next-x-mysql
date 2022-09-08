@@ -65,7 +65,7 @@ const ProductsForm = () => {
   useEffect(() => {
     if (query.id) {
       getProduct(
-        `/api/product/${query.id}`,
+        `${process.env.DOMINE}/api/product/${query.id}`,
         setProduct
       )
     }
@@ -90,10 +90,10 @@ const ProductsForm = () => {
     e.preventDefault()
     try {
       if (query.id) {
-        await axios.put(`/api/product/${query.id}`, product)
+        await axios.put(`${process.env.DOMINE}/api/product/${query.id}`, product)
         editedNotify()
       } else {
-        await axios.post("/api/product", product)
+        await axios.post(`${process.env.DOMINE}/api/product`, product)
         createdNotify()
       }
       push("/")

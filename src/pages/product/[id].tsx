@@ -22,7 +22,7 @@ const ProductEdit = ({ product }: { product: product }) => {
   const { push } = useRouter()
 
   const handlerDelete = async (id: string) => {
-    await axios.delete(`/api/product/${id}`)
+    await axios.delete(`${process.env.DOMINE}/api/product/${id}`)
     push("/")
     deleteNotify()
   }
@@ -62,7 +62,7 @@ const ProductEdit = ({ product }: { product: product }) => {
 
 export const getServerSideProps: GetServerSideProps = async context => {
   const { data: product } = await axios.get(
-    `/api/product/${context.query.id}`
+    `${process.env.DOMINE}/api/product/${context.query.id}`
   )
 
   return {
