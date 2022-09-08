@@ -1,7 +1,8 @@
+import { ReactNode } from "react";
 import { Toaster } from "react-hot-toast";
 import Nav from "./nav";
 
-const Layout = ({ children }) => {
+const Layout = ({ children }: {children? : ReactNode}) => {
   return (
     <div className="bg-[#EDF1F4] min-h-screen">
       <Nav />

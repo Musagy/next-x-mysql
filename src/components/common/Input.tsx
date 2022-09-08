@@ -1,8 +1,20 @@
-import React from "react";
+import React from "react"
 
-const Input = ({ type, name, label, onChange, value }) => {
+interface HandlerChange {
+  target: { id: string; value: string }
+}
+
+interface props {
+  type: string
+  name: string
+  label: boolean
+  onChange: (a: HandlerChange) => void
+  value?: string | number
+}
+
+const Input = ({ type, name, label, onChange, value }: props) => {
   const style =
-    " block w-full py-0.5 px-2 rounded-lg outline-none my-1 mb-3 border-gray-200 border-2";
+    " block w-full py-0.5 px-2 rounded-lg outline-none my-1 mb-3 border-gray-200 border-2"
 
   return (
     <>
@@ -31,7 +43,7 @@ const Input = ({ type, name, label, onChange, value }) => {
         />
       )}
     </>
-  );
-};
+  )
+}
 
-export default Input;
+export default Input

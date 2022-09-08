@@ -1,9 +1,16 @@
-import Btn from "./common/Btn.";
-import Input from "./common/Input";
-import axios from "axios";
-import { useEffect, useState } from "react";
-import { useRouter } from "next/router";
-import toast from "react-hot-toast";
+import Btn from "./common/Btn."
+import Input from "./common/Input"
+import axios from "axios"
+import {
+  Dispatch,
+  FormEventHandler,
+  SetStateAction,
+  useEffect,
+  useState,
+} from "react"
+import { useRouter } from "next/router"
+import toast from "react-hot-toast"
+import { product } from "@prisma/client"
 
 const editedNotify = () =>
   toast.success("Edited correctly", {
@@ -16,7 +23,7 @@ const editedNotify = () =>
       primary: "#06b6d4",
       secondary: "white",
     },
-  });
+  })
 
 const createdNotify = () =>
   toast.success("Created correctly", {
@@ -29,9 +36,9 @@ const createdNotify = () =>
       primary: "#4ade80",
       secondary: "white",
     },
-  });
+  })
 
-const errorNotify = (msg) =>
+const errorNotify = (msg: string) =>
   toast.error(msg, {
     style: {
       border: "1px solid #EF4444",
@@ -42,52 +49,66 @@ const errorNotify = (msg) =>
       primary: "#EF4444",
       secondary: "white",
     },
-  });
+  })
 
-const getProduct = async (url, setState) => {
-  const { data } = await axios.get(url);
-  console.log(data);
-  setState(data);
-};
+const getProduct = async (
+  url: string,
+  setState: Dispatch<SetStateAction<product>>
+) => {
+  const { data } = await axios.get(url)
+  console.log(data)
+  setState(data)
+}
 const ProductsForm = () => {
-  const { push, query } = useRouter();
+  const { push, query } = useRouter()
 
   useEffect(() => {
     if (query.id) {
-      getProduct(`https://pro-products.vercel.app/api/product/${query.id}`, setProduct);
+      getProduct(
+        `/api/product/${query.id}`,
+        setProduct
+      )
     }
-  }, [query]);
+  }, [query])
 
-  const [product, setProduct] = useState({
+  const [product, setProduct] = useState<product>({
     name: "",
     description: "",
     image: "",
-    price: 0,
-  });
+    price: null,
+    id: 0,
+    createdAT: new Date(),
+  })
+  interface HandlerChange {
+    target: { id: string; value: string }
+  }
 
-  const handlerChange = ({ target: { id, value } }) =>
-    setProduct({ ...product, [id.toLowerCase()]: value });
+  const handlerChange = ({ target: { id, value } }: HandlerChange) =>
+    setProduct({ ...product, [id.toLowerCase()]: value })
 
-  const handlerSubmit = async (e) => {
-    e.preventDefault();
+  const handlerSubmit: FormEventHandler<HTMLFormElement> = async e => {
+    e.preventDefault()
     try {
       if (query.id) {
-        await axios.put(`/api/product/${query.id}`, product);
-        editedNotify();
+        await axios.put(`/api/product/${query.id}`, product)
+        editedNotify()
       } else {
-        await axios.post("/api/product", product);
-        createdNotify();
+        await axios.post("/api/product", product)
+        createdNotify()
       }
-      push("/");
-    } catch (error) {
-      console.log(error.response);
+      push("/")
+    } catch (error: any) {
+      console.log(error.response)
       // errorNotify(error.response)
-      errorNotify(error.response.data.message);
+      errorNotify(error.response.data.message)
     }
-  };
+  }
   return (
     <div className="p-2 mx-2 flex justify-center h-[calc(100vh-68px)] items-center">
-      <form onSubmit={handlerSubmit} className="w-full max-w-sm custom-shadow p-4 rounded-xl">
+      <form
+        onSubmit={handlerSubmit}
+        className="w-full max-w-sm custom-shadow p-4 rounded-xl"
+      >
         <h1 className="text-4xl font-extrabold mb-2 text-gray-900">
           {!query.id ? "Crear nuevo producto" : "Editar producto"}
         </h1>
@@ -110,21 +131,21 @@ const ProductsForm = () => {
           name={"Image"}
           label
           onChange={handlerChange}
-          value={product.image}
+          value={product.image ? product.image : ""}
         />
         <Input
           type={"text"}
           name={"Price"}
           label
           onChange={handlerChange}
-          value={product.price}
+          value={product.price ? product.price.toString() : undefined}
         />
-        <Btn text={"Save product"} bg={"bg-indigo-500 text-xl font-bold mt-6 "}>
+        <Btn bg={"bg-indigo-500 text-xl font-bold mt-6 "}>
           {query.id ? "Edit product" : "Create product"}
         </Btn>
       </form>
     </div>
-  );
-};
+  )
+}
 
-export default ProductsForm;
+export default ProductsForm

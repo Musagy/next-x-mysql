@@ -1,7 +1,9 @@
-import axios from "axios";
-import { useRouter } from "next/router";
-import Btn from "../../components/common/Btn.";
-import toast from "react-hot-toast";
+import axios from "axios"
+import { useRouter } from "next/router"
+import Btn from "../../components/common/Btn."
+import toast from "react-hot-toast"
+import { product } from "@prisma/client"
+import { GetServerSideProps } from "next"
 
 const deleteNotify = () =>
   toast.success("Removed successfully", {
@@ -14,16 +16,16 @@ const deleteNotify = () =>
       primary: "#EF4444",
       secondary: "white",
     },
-  });
+  })
 
-const ProductEdit = ({ product }) => {
-  const { push } = useRouter();
+const ProductEdit = ({ product }: { product: product }) => {
+  const { push } = useRouter()
 
-  const handlerDelete = async (id) => {
-    await axios.delete(`/api/product/${id}`);
-    push("/");
-    deleteNotify();
-  };
+  const handlerDelete = async (id: string) => {
+    await axios.delete(`/api/product/${id}`)
+    push("/")
+    deleteNotify()
+  }
   return (
     <div className=" m-auto my-10 max-w-screen-md">
       <div
@@ -33,13 +35,13 @@ const ProductEdit = ({ product }) => {
         <h1 className="text-3xl font-bold">{product.name}</h1>
         <div>
           <p className="font-light">{product.description}</p>
-          <p className="font-light">{product.price}</p>
+          <p className="font-light">{`${product.price}`}</p>
           <div className="flex gap-3 justify-end  -mb-12 bottom-0 relative">
             <Btn
               bg={"bg-red-500 shadow-xl"}
               margin={"my-2"}
               className={"font-bold py-2 px-3 text-xl"}
-              onClick={() => handlerDelete(product.id)}
+              onClick={() => handlerDelete(`${product.id}`)}
             >
               Remove
             </Btn>
@@ -55,19 +57,19 @@ const ProductEdit = ({ product }) => {
         </div>
       </div>
     </div>
-  );
-};
+  )
+}
 
-export const getServerSideProps = async (context) => {
+export const getServerSideProps: GetServerSideProps = async context => {
   const { data: product } = await axios.get(
-    `https://pro-products.vercel.app/api/product/${context.query.id}`
-  );
+    `/api/product/${context.query.id}`
+  )
 
   return {
     props: {
       product,
     },
-  };
-};
+  }
+}
 
-export default ProductEdit;
+export default ProductEdit

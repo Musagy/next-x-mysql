@@ -1,7 +1,7 @@
-import React from "react";
-import useStore from "../hooks/useStore";
-import Btn from "./common/Btn.";
-import toast from "react-hot-toast";
+import React from "react"
+import useStore from "../hooks/useStore"
+import Btn from "./common/Btn."
+import toast from "react-hot-toast"
 
 const payNotify = () => {
   toast.success("Compra completa 😎", {
@@ -14,15 +14,17 @@ const payNotify = () => {
       primary: "#6366f1",
       secondary: "white",
     },
-  });
-};
+  })
+}
 
-const Modal = ({ products = [] }) => {
-  const { setStore } = useStore();
-  let totalCost = 0;
-  products.forEach((product) => {
-    totalCost += parseFloat(product[1]);
-  });
+type itemsCarInfo = [string, string]
+
+const Modal = ({ products = [] }: { products: itemsCarInfo[] }) => {
+  const { setStore } = useStore()
+  let totalCost = 0
+  products.forEach(product => {
+    totalCost += parseFloat(product[1])
+  })
   return (
     <div className="absolute right-0 top-12 bg-white text-indigo-500 rounded-xl min-w-56 z-10 shadow-lg">
       {products.length > 0 ? (
@@ -42,9 +44,9 @@ const Modal = ({ products = [] }) => {
               </div>
               <div
                 onClick={() => {
-                  const newStore = [...products];
-                  newStore.splice(index, 1);
-                  setStore(newStore);
+                  const newStore = [...products]
+                  newStore.splice(index, 1)
+                  setStore(newStore)
                 }}
                 className="grid place-content-center w-16 hover:bg-indigo-200 rounded-xl"
               >
@@ -63,38 +65,40 @@ const Modal = ({ products = [] }) => {
               </div>
             </div>
           ))}
-      <div className={`flex justify-between`}>
-        <div className="py-2 px-3">
-          <h1 className="font-bold">Total</h1>
-          <p className="text-black font-normal">$/. {totalCost.toFixed(2)}</p>
-        </div>
-        <Btn
-          className="flex justify-center items-center gap-2 mx-2 my-3"
-          bg="bg-indigo-500"
-          onClick={() => payNotify()}
-        >
-          Pagar
-          <svg
-            stroke="currentColor"
-            fill="currentColor"
-            strokeWidth="0"
-            viewBox="0 0 16 16"
-            height="1em"
-            width="1em"
-            xmlns="http://www.w3.org/2000/svg"
-          >
-            <path d="M.5 1a.5.5 0 0 0 0 1h1.11l.401 1.607 1.498 7.985A.5.5 0 0 0 4 12h1a2 2 0 1 0 0 4 2 2 0 0 0 0-4h7a2 2 0 1 0 0 4 2 2 0 0 0 0-4h1a.5.5 0 0 0 .491-.408l1.5-8A.5.5 0 0 0 14.5 3H2.89l-.405-1.621A.5.5 0 0 0 2 1H.5zM6 14a1 1 0 1 1-2 0 1 1 0 0 1 2 0zm7 0a1 1 0 1 1-2 0 1 1 0 0 1 2 0zm-1.646-7.646-3 3a.5.5 0 0 1-.708 0l-1.5-1.5a.5.5 0 1 1 .708-.708L8 8.293l2.646-2.647a.5.5 0 0 1 .708.708z"></path>
-          </svg>
-        </Btn>
-      </div>
+          <div className={`flex justify-between`}>
+            <div className="py-2 px-3">
+              <h1 className="font-bold">Total</h1>
+              <p className="text-black font-normal">
+                $/. {totalCost.toFixed(2)}
+              </p>
+            </div>
+            <Btn
+              className="flex justify-center items-center gap-2 mx-2 my-3"
+              bg="bg-indigo-500"
+              onClick={() => payNotify()}
+            >
+              Pagar
+              <svg
+                stroke="currentColor"
+                fill="currentColor"
+                strokeWidth="0"
+                viewBox="0 0 16 16"
+                height="1em"
+                width="1em"
+                xmlns="http://www.w3.org/2000/svg"
+              >
+                <path d="M.5 1a.5.5 0 0 0 0 1h1.11l.401 1.607 1.498 7.985A.5.5 0 0 0 4 12h1a2 2 0 1 0 0 4 2 2 0 0 0 0-4h7a2 2 0 1 0 0 4 2 2 0 0 0 0-4h1a.5.5 0 0 0 .491-.408l1.5-8A.5.5 0 0 0 14.5 3H2.89l-.405-1.621A.5.5 0 0 0 2 1H.5zM6 14a1 1 0 1 1-2 0 1 1 0 0 1 2 0zm7 0a1 1 0 1 1-2 0 1 1 0 0 1 2 0zm-1.646-7.646-3 3a.5.5 0 0 1-.708 0l-1.5-1.5a.5.5 0 1 1 .708-.708L8 8.293l2.646-2.647a.5.5 0 0 1 .708.708z"></path>
+              </svg>
+            </Btn>
+          </div>
         </>
       ) : (
-        <div className="grid place-content-center p-4 font-bold" >
+        <div className="grid place-content-center p-4 font-bold">
           No hay productos en el carrito 😭😭
         </div>
       )}
     </div>
-  );
-};
+  )
+}
 
-export default Modal;
+export default Modal
