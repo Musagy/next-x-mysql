@@ -91,7 +91,11 @@ function Home({ product }: props) {
 }
 export const getServerSideProps: GetServerSideProps = async context => {
   // const {} = Route()
-  const { data: product } = await axios.get(`http${window.location.host.includes("localhost") ? "" : "s"}://${window.location.host}/api/product`)
+  const { data: product } = await axios.get(
+    `http${`${context.req.headers.host}`.includes("localhost") ? "" : "s"}://${
+      context.req.headers.host
+    }/api/product`
+  )
 
   return {
     props: {
